@@ -1,0 +1,119 @@
+/*الخلفيه المتحركه*/
+
+.bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, rgb(188, 214, 175) 50%, rgb(217, 235, 214) 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+  }
+  
+  .bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+  }
+  
+  .bg3 {
+    animation-duration:5s;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform:translateX(-25%);
+    }
+    100% {
+      transform:translateX(25%);
+    }
+  }
+  /**/
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.inner{
+    height: 75%;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 10px 10px 68px -6px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+}
+
+.photo{
+    width: 50%;
+    height: 100%;
+    padding: 50px;
+}
+.photo img{
+    width: 100%;
+    height: 100%;
+}
+.user-form{
+    background: rgb(227, 240, 227);
+    padding: 50px;
+    width: 50%;
+    height: 100%;
+    border-radius: 0px 10px 10px 0px;
+}
+.user-form h1{
+    color: green;
+    padding: 30px ;
+}
+.user-form i{
+    position: absolute;
+    color: green;
+    margin: 25px 10px;
+}
+input{
+    width: 100%;
+    border-radius: 30px;
+    border: none;
+    height: 3em;
+    font-size: 15px;
+    margin: 10px 0;
+    padding: 0 30px;
+}
+
+.btn{
+    width: 70%;
+    margin: 20px auto 0;
+    background: green;
+    text-align: center;
+    padding: 12px;
+    border-radius: 25px;
+  }
+  
+ .btn a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.4rem;
+  }
+  
+ .btn:hover{
+    background-color: rgb(159, 211, 159);
+    cursor: pointer;
+  }
+
+.user-form p{
+    font-size: 0.77rem;
+    text-align: center;
+    color: rgb(10, 75, 10);
+    margin-top: 2rem;
+}
+
+
+
+
