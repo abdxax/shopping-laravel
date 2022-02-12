@@ -19,3 +19,8 @@ Route::post("register","HomeController@register");
 Route::get("sellerRegister","HomeController@registerSellr")->name("registerSeller");
 Route::post("sellerRegister","HomeController@registerSellr");
 Route::get("login","LoginController@login")->name("login");
+Route::post("login","LoginController@login");
+
+Route::prefix("admin")->group(function (){
+    Route::get("Home","Admin\HomeController@Index")->name("admin.Home");
+});
