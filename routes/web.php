@@ -23,4 +23,6 @@ Route::post("login","LoginController@login");
 
 Route::prefix("admin")->group(function (){
     Route::get("Home","Admin\HomeController@Index")->name("admin.Home");
+    Route::get("depart","Admin\HomeController@Department")->name("admin.depart");
+    Route::post("depart","Admin\HomeController@Department");
 });
