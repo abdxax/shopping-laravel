@@ -26,3 +26,8 @@ Route::prefix("admin")->group(function (){
     Route::get("depart","Admin\HomeController@Department")->name("admin.depart");
     Route::post("depart","Admin\HomeController@Department");
 });
+
+Route::prefix("seller")->group(function (){
+    Route::get("Home","Seller\HomeController@index")->name("seller.home");
+    Route::get("proudects","Seller\HomeController@produect")->name("seller.prod");
+});

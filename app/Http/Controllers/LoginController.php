@@ -15,7 +15,7 @@ class LoginController extends Controller
                 }
                 elseif (auth()->user()->hasRole("seller")){
 
-                    return "customer2";
+                    return redirect()->route("seller.home");
                 }
                 elseif (auth()->user()->hasRole("customer")){
                     return "customer3";
