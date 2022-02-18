@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarShopping;
+use App\Models\Department;
 use App\Models\Order;
 use App\Models\proudct;
 use App\Models\User;
@@ -12,17 +13,41 @@ use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
       //  Role::create(['name' => 'admin']);
        // Role::create(['name' => 'seller']);
        // Role::create(['name' => 'customer']);
+        if($request->isMethod("post")){
+            $item=$request->seItem;
+            if($item==0){
+                $prods=proudct::where("count",">",0)->get();
+                $dep=Department::all();
+                $arr=["prods"=>$prods,"dep"=>$dep];
+                return view("home",$arr);
+            }
+            else{
+                $prods=proudct::where("count",">",0)->where("dep_id",$item)->get();
+                $dep=Department::all();
+                $arr=["prods"=>$prods,"dep"=>$dep];
+                return view("home",$arr);
+            }
+        }
+        $dep=Department::all();
         $prods=proudct::where("count",">",0)->get();
-        return view("home")->with("prods",$prods);
+        $arr=["prods"=>$prods,"dep"=>$dep];
+        return view("home",$arr);
     }
 
     public function shows($id){
         $prod=proudct::find($id);
         return view("shows")->with("prod",$prod);
+    }
+
+    public function Market(){
+        $dep=Department::all();
+        $prods=proudct::where("count",">",0)->get();
+        $arr=["prods"=>$prods,"dep"=>$dep];
+        return view("market",$arr);
     }
 
     public function car(){

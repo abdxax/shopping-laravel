@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',"HomeController@index")->name("home");
+Route::post('/',"HomeController@index");
 Route::get("register","HomeController@register")->name("register");
 Route::post("register","HomeController@register");
 Route::get("sellerRegister","HomeController@registerSellr")->name("registerSeller");
@@ -24,6 +25,8 @@ Route::get("logout","LoginController@logout")->name("logout");
 Route::get("show/{id}","HomeController@shows")->name("shows");
 Route::get("car/{id}","HomeController@addCar")->name("car");
 Route::get("showCar","HomeController@car")->name("showCar");
+Route::get("market","HomeController@market")->name("market");
+Route::post("market","HomeController@market");
 
 Route::prefix("admin")->group(function (){
     Route::get("Home","Admin\HomeController@Index")->name("admin.Home");

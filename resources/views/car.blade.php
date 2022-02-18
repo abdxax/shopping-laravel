@@ -43,6 +43,11 @@
                     <!--كود الايقونه-->
                     <i class="fas fa-logout"></i>
                 </li>
+                <li>
+                    <a href="{{route("market")}}">المتجر</a>
+                    <!--كود الايقونه-->
+                    <i class="fas fa-logout"></i>
+                </li>
             @else
                 <li>
                     <a href="{{route("login")}}">تسجيل الدخول</a>
@@ -94,7 +99,7 @@
            </table>
 
             <div class="text-center">
-                <a href="" class="btn btn-info">اتمام عملية الشراء</a>
+                <a href="" class="btn btn-success">اتمام عملية الشراء</a>
             </div>
         </div>
     </div>

@@ -17,10 +17,17 @@
     <!--للربط مع صفحة التنسيق-->
     <link rel="stylesheet" href="{{asset("css/indexStyles.css")}}">
 
+
     <title>ثمار الطبيعة</title>
 </head>
 
 <body>
+<!--اكواد الخلفيه المتحركه-->
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="content"></div>
+<!---->
 <!--الناف بار-->
 <nav>
     <div class="logo">
@@ -42,6 +49,11 @@
                     <a href="{{route("logout")}}">تسجيل خروج</a>
                     <!--كود الايقونه-->
                     <i class="fas fa-logout"></i>
+                <li>
+                    <a href="{{route("market")}}">المتجر</a>
+                    <!--كود الايقونه-->
+                    <i class="fas fa-logout"></i>
+                </li>
                 </li>
             @else
                 <li>

@@ -43,6 +43,11 @@
                     <!--كود الايقونه-->
                     <i class="fas fa-logout"></i>
                 </li>
+                <li>
+                    <a href="{{route("market")}}">المتجر</a>
+                    <!--كود الايقونه-->
+                    <i class="fas fa-logout"></i>
+                </li>
             @else
             <li>
                 <a href="{{route("login")}}">تسجيل الدخول</a>
@@ -88,7 +93,54 @@
 
 <section class="features" id="features">
     <div class="features-section">
-        <h4>لماذا نحن أفضل خيار؟</h4>
+        <h4>المنتجات الاكثر مبياعا</h4>
+
+        <!-- للتنسيق الاربع المزايا-->
+        <div class="row">
+            <div class="qualities">
+                @foreach($prods as $p)
+
+                    <div class="quality col-md-3">
+                        <!--كود الايقونه-->
+                        <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="95" height="95">
+                        <h3>{{$p->title}}</h3>
+                        <p>{{$p->price}}</p>
+                        <p><a href="{{route("shows",$p->id)}}" class="btn btn-info">التفاصيل </a> </p>
+
+                    </div>
+
+                @endforeach
+
+
+            </div>
+        </div>
+
+    </div>
+    <!--فوتر -->
+
+</section>
+
+<section class="features" id="features">
+    <div class="features-section">
+        <h4>المنتجات</h4>
+        <div class="col-md-6">
+            <form method="post">
+                @csrf
+                <div class="form-group row">
+                <div class="col-md-5">
+                    <select name="seItem" class="form-select">
+                        <option value="0">الكل</option>
+                        @foreach($dep as $d)
+                           <option value="{{$d->id}}">{{$d->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-success" value="عرض ">
+                    </div>
+                </div>
+            </form>
+        </div>
         <!-- للتنسيق الاربع المزايا-->
         <div class="row">
             <div class="qualities">
