@@ -12,4 +12,8 @@ class proudct extends Model
     public function imges(){
         return $this->hasMany(ImgPrd::class,"prod_id");
     }
+
+    public function Car(){
+        return $this->hasMany(CarShopping::class,"prod_id");
+    }
 }

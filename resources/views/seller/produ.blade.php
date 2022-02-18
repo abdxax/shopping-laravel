@@ -17,7 +17,7 @@
                                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
                                 @csrf
                             <div class="modal-body">
                                <div class="form-group">
@@ -39,13 +39,15 @@
                                 <div class="form-group">
                                     <input type="text" name="count" class="form-control" placeholder="الكمية">
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="text" name="title" class="form-control" placeholder="العنوان">
+                                    <input type="file" name="img" class="form-control" >
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Understood</button>
+                                <input type="submit" name="sub" class="btn btn-info" value="اضافة">
                             </div>
                             </form>
                         </div>
@@ -57,21 +59,23 @@
             <div class="col-md-10">
                 <table class="table">
                     <thead>
-                    <td>
+                    <tr>
 
                     <th></th>
                     <th>المنتج</th>
                     <th>السعر</th>
                     <th>الكمية</th>
                     <th></th>
-                    </td>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach($prods as $p)
                         <tr>
-                            <td><img src=""></td>
+                            <td><img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="90" height="90"></td>
                             <td>{{$p->title}}</td>
                             <td>{{$p->price}}</td>
+                            <td>{{$p->count}}</td>
+                            <td><a href="{{route("seller.show",$p->id)}}" class="btn btn-info"> التفاصيل</a> </td>
                         </tr>
                     @endforeach
                     </tbody>

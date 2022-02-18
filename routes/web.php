@@ -20,6 +20,10 @@ Route::get("sellerRegister","HomeController@registerSellr")->name("registerSelle
 Route::post("sellerRegister","HomeController@registerSellr");
 Route::get("login","LoginController@login")->name("login");
 Route::post("login","LoginController@login");
+Route::get("logout","LoginController@logout")->name("logout");
+Route::get("show/{id}","HomeController@shows")->name("shows");
+Route::get("car/{id}","HomeController@addCar")->name("car");
+Route::get("showCar","HomeController@car")->name("showCar");
 
 Route::prefix("admin")->group(function (){
     Route::get("Home","Admin\HomeController@Index")->name("admin.Home");
@@ -30,4 +34,6 @@ Route::prefix("admin")->group(function (){
 Route::prefix("seller")->group(function (){
     Route::get("Home","Seller\HomeController@index")->name("seller.home");
     Route::get("proudects","Seller\HomeController@produect")->name("seller.prod");
+    Route::post("proudects","Seller\HomeController@produect");
+    Route::get("showprod/{id}","Seller\HomeController@showProd")->name("seller.show");
 });

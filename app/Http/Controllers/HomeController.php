@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarShopping;
+use App\Models\Order;
+use App\Models\proudct;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -13,7 +16,52 @@ class HomeController extends Controller
       //  Role::create(['name' => 'admin']);
        // Role::create(['name' => 'seller']);
        // Role::create(['name' => 'customer']);
-        return view("home");
+        $prods=proudct::where("count",">",0)->get();
+        return view("home")->with("prods",$prods);
+    }
+
+    public function shows($id){
+        $prod=proudct::find($id);
+        return view("shows")->with("prod",$prod);
+    }
+
+    public function car(){
+        $user=auth()->user();
+        if($user==null){
+            return redirect()->route("login");
+        }
+        $ord=Order::where("user_id",$user->id)->where("status","wait")->first();
+
+        return  view("car")->with("ord",$ord);
+    }
+
+    public function addCar($id){
+        $user=auth()->user();
+        if($user==null){
+            return redirect()->route("login");
+        }
+        $ord=Order::where("user_id",$user->id)->where("status","wait")->first();
+        if($ord==null){
+            $ord=new Order();
+            $ord->user_id=$user->id;
+            $ord->status="wait";
+            if($ord->save()){
+                $car=new CarShopping();
+                $car->oder_id=$ord->id;
+                $car->prod_id=$id;
+                if($car->save()){
+                    return redirect("/");
+                }
+            }
+        }
+
+        $car=new CarShopping();
+        $car->oder_id=$ord->id;
+        $car->prod_id=$id;
+        if($car->save()){
+            return redirect("/");
+        }
+
     }
 
     public function register(Request  $request){
@@ -54,7 +102,7 @@ class HomeController extends Controller
             $user->fullName=$request->FName." ".$request->LName;
             $user->name=$request->UserName;
             $user->email=$request->Email;
-            $user->password=bcrypt($request->Password);
+            $user->password=bcrypt($request->password);
             if($user->save()){
                 $user->assignRole("seller");
                 return back()->with("suc","تم انشاء الحساب بنجاح ");
