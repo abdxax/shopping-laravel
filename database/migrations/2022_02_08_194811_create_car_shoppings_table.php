@@ -17,6 +17,7 @@ class CreateCarShoppingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger("oder_id");
             $table->unsignedBigInteger("prod_id");
+            $table->integer("count");
             $table->timestamps();
             $table->softDeletes();
 

@@ -98,14 +98,14 @@
         <!-- للتنسيق الاربع المزايا-->
         <div class="row">
             <div class="qualities">
-                @foreach($prods as $p)
+                @foreach($best as $b)
 
                     <div class="quality col-md-3">
                         <!--كود الايقونه-->
-                        <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="95" height="95">
-                        <h3>{{$p->title}}</h3>
-                        <p>{{$p->price}}</p>
-                        <p><a href="{{route("shows",$p->id)}}" class="btn btn-info">التفاصيل </a> </p>
+                       <img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150">
+                        <h3>{{$b->produect->title}}</h3>
+                        <p>{{$b->produect->price}}</p>
+                        <p><a href="{{route("shows",$b->produect->id)}}" class="btn btn-info">التفاصيل </a> </p>
 
                     </div>
 

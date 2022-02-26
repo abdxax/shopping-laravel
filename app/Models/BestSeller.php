@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BestSeller extends Model
 {
     use HasFactory;
+    public function produect(){
+        return $this->belongsTo(proudct::class,"prod_id");
+    }
 }

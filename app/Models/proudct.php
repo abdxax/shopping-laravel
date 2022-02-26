@@ -16,4 +16,8 @@ class proudct extends Model
     public function Car(){
         return $this->hasMany(CarShopping::class,"prod_id");
     }
+
+    public function bestSeller(){
+        return $this->hasOne(BestSeller::class,"prod_id");
+    }
 }

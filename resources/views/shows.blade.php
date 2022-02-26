@@ -77,14 +77,33 @@
 
 <!--الهيروسكشن-->
 <div class="container" dir="rtl">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h3>{{$prod->title}}</h3>
-            <img src="{{asset("storage/".$prod->imges[0]->imgPath)}}">
+            <img src="{{asset("storage/".$prod->imges[0]->imgPath)}}" width="270" height="270">
             <p>{{$prod->descrip}}</p>
             <p>السعر :{{$prod->price}} </p>
             <p>الكمية : {{$prod->count}}</p>
-            <a href="{{route("car",$prod->id)}}" class="btn btn-info">اضافة للسلة</a>
+          <div class="col-md-5 offset-md-4">
+              <form method="post" action="{{route("car",$prod->id)}}">
+                  @csrf
+                  <div class="form-group row">
+                      <label class="col-md-2">الكمية</label>
+                      <div class="col-md-3">
+                          <input type="number" class="form-control" name="prod_item" >
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label></label>
+                      <div class="col-md-">
+                          <input type="submit" class="btn btn-info" value="اضافو للسلة">
+                      </div>
+                  </div>
+
+              </form>
+          </div>
+           <!-- <a href="{{route("car",$prod->id)}}" class="btn btn-info">اضافة للسلة</a>-->
         </div>
     </div>
 </div>

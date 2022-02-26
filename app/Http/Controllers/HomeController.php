@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BestSeller;
 use App\Models\CarShopping;
 use App\Models\Department;
 use App\Models\Order;
@@ -14,7 +15,7 @@ use Spatie\Permission\Models\Permission;
 class HomeController extends Controller
 {
     public function index(Request $request){
-      //  Role::create(['name' => 'admin']);
+       // Role::create(['name' => 'admin']);
        // Role::create(['name' => 'seller']);
        // Role::create(['name' => 'customer']);
         if($request->isMethod("post")){
@@ -34,7 +35,8 @@ class HomeController extends Controller
         }
         $dep=Department::all();
         $prods=proudct::where("count",">",0)->get();
-        $arr=["prods"=>$prods,"dep"=>$dep];
+        $best=BestSeller::all()->sortDesc();
+        $arr=["prods"=>$prods,"dep"=>$dep,"best"=>$best];
         return view("home",$arr);
     }
 
@@ -60,32 +62,78 @@ class HomeController extends Controller
         return  view("car")->with("ord",$ord);
     }
 
-    public function addCar($id){
+    public  function payOrder($id){
+        $ord=Order::find($id);
+        if($ord==null){
+            return back();
+        }
+        $ord->status="payment";
+        if($ord->save()){
+            foreach ($ord->prods as $p){
+
+                $prod_cou=proudct::find($p->prod_id);
+                $p_count=$prod_cou->count;
+                $res_co=$p_count-$p->count;
+                if($res_co>=0){
+                    $prod_cou->count=$res_co;
+                    $prod_cou->save();
+                }
+                else{
+                    $prod_cou->count=0;
+                    $prod_cou->save();
+                }
+                $bs=BestSeller::where("prod_id",$p->prod_id)->first();
+                if($bs==null){
+                    $bs=new BestSeller();
+                    $bs->prod_id=$p->prod_id;
+                    $bs->countBuy=1;
+                    if($bs->save()){
+
+                    }
+                }
+                else{
+                    $count =$bs->countBuy;
+                    $bs->countBuy=++$count;
+                    if($bs->save()){
+
+                    }
+                }
+            }
+        }
+    }
+
+    public function addCar($id,Request $request){
         $user=auth()->user();
         if($user==null){
             return redirect()->route("login");
         }
-        $ord=Order::where("user_id",$user->id)->where("status","wait")->first();
-        if($ord==null){
-            $ord=new Order();
-            $ord->user_id=$user->id;
-            $ord->status="wait";
-            if($ord->save()){
-                $car=new CarShopping();
-                $car->oder_id=$ord->id;
-                $car->prod_id=$id;
-                if($car->save()){
-                    return redirect("/");
+        if($request->isMethod("post")){
+            $ord=Order::where("user_id",$user->id)->where("status","wait")->first();
+            if($ord==null){
+                $ord=new Order();
+                $ord->user_id=$user->id;
+                $ord->status="wait";
+                if($ord->save()){
+                    $car=new CarShopping();
+                    $car->oder_id=$ord->id;
+                    $car->prod_id=$id;
+                    $car->count=1;
+                    if($car->save()){
+                        return redirect("/");
+                    }
                 }
+            }
+
+            $car=new CarShopping();
+            $car->oder_id=$ord->id;
+            $car->prod_id=$id;
+            $car->count=$request->prod_item;
+            if($car->save()){
+
+                return redirect("/");
             }
         }
 
-        $car=new CarShopping();
-        $car->oder_id=$ord->id;
-        $car->prod_id=$id;
-        if($car->save()){
-            return redirect("/");
-        }
 
     }
 
@@ -105,7 +153,7 @@ class HomeController extends Controller
             $user->password=bcrypt($request->Password);
             if($user->save()){
                 $user->assignRole("customer");
-                return back()->with("suc","تم انشاء الحساب بنجاح ");
+                return redirect("/");
             }
             else{
                 return "ss";
@@ -130,7 +178,11 @@ class HomeController extends Controller
             $user->password=bcrypt($request->password);
             if($user->save()){
                 $user->assignRole("seller");
-                return back()->with("suc","تم انشاء الحساب بنجاح ");
+                $login=["email"=>$user->email,"password"=>$request->password];
+                if(auth()->attempt($login)){
+                    return redirect()->route("seller.prod");
+                }
+
             }
             else{
                 return "ss";
