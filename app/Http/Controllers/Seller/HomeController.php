@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return view("seller.home");
+        $prod=count(proudct::where("user_id",auth()->user()->id)->get());
+        return view("seller.home")->with("prod",$prod);
     }
 
     public function produect(Request  $request){

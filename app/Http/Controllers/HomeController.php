@@ -47,7 +47,7 @@ class HomeController extends Controller
 
     public function Market(){
         $dep=Department::all();
-        $prods=proudct::where("count",">",0)->get();
+        $prods=proudct::where("count",">",0)->paginate(1);
         $arr=["prods"=>$prods,"dep"=>$dep];
         return view("market",$arr);
     }
@@ -99,6 +99,8 @@ class HomeController extends Controller
                     }
                 }
             }
+
+            return  redirect()->route("review",$ord->id);
         }
     }
 
@@ -117,7 +119,7 @@ class HomeController extends Controller
                     $car=new CarShopping();
                     $car->oder_id=$ord->id;
                     $car->prod_id=$id;
-                    $car->count=1;
+                    $car->count=$request->prod_item;
                     if($car->save()){
                         return redirect("/");
                     }
@@ -189,5 +191,14 @@ class HomeController extends Controller
             }
         }
         return view("sellerRegister");
+    }
+
+
+    public  function reviewOreder($id){
+        $ord=Order::find($id);
+        if($ord==null){
+            return back();
+        }
+        return view("review")->with("ord",$ord);
     }
 }

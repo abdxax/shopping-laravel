@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\Order;
+use App\Models\proudct;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function Index(){
-     return view("admin.home");
+        $dep=count(Department::all());
+        $prod=count(proudct::all());
+        $user=count(User::all());
+        $order=count(Order::where("status","payment")->get());
+        $arr=["dep"=>$dep,"prod"=>$prod,"user"=>$user,"order"=>$order];
+     return view("admin.home",$arr);
     }
 
     public function Department(Request $request){

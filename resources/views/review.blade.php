@@ -71,64 +71,45 @@
 <!--الهيروسكشن-->
 <div class="container" dir="rtl">
     <div class="row">
-        <div class="col-md-12 text-center">
-           <table class="table">
-               <thead>
-               <tr>
-                   <th></th>
-                   <th>المنتج</th>
-                   <th>السعر</th>
-                   <th>الكمية</th>
-                   <th>المجموع</th>
-                   <th>حذف</th>
-               </tr>
-               </thead>
-               <tbody>
-               @php($total=0)
-               @if($ord!=null)
+        <div class="col-md-12 text-center mt-2">
+            <h4>زقم الطلب {{$ord->id}}</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>المنتج</th>
+                    <th>السعر</th>
+                    <th>الكمية</th>
+                    <th>المجموع</th>
 
-               @foreach($ord->prods as $ps)
+                </tr>
+                </thead>
+                <tbody>
+                @php($total=0)
+                @if($ord!=null)
 
-                   <tr>
-                       <td><img src="{{asset("storage/".$ps->prod->imges[0]->imgPath)}}" width="80" height="80"></td>
-                       <td>{{$ps->prod->title}}</td>
-                       <td>{{$ps->prod->price}}</td>
-                       <td>{{$ps->count}}</td>
-                       <td>{{$pcs=$ps->count*$ps->prod->price}}</td>
-                       <td><a href="#" class="btn btn-danger">حذف </a> </td>
-                   </tr>
-                <input type="hidden" value=" {{$total+=$pcs}}">
-               @endforeach
-               @else
-               <h3>لا يوجد منتجات في السلة</h3>
-               @endif
-               </tbody>
-           </table>
+                    @foreach($ord->prods as $ps)
+
+                        <tr>
+                            <td><img src="{{asset("storage/".$ps->prod->imges[0]->imgPath)}}" width="80" height="80"></td>
+                            <td>{{$ps->prod->title}}</td>
+                            <td>{{$ps->prod->price}}</td>
+                            <td>{{$ps->count}}</td>
+                            <td>{{$pcs=$ps->count*$ps->prod->price}}</td>
+
+                        </tr>
+                        <input type="hidden" value=" {{$total+=$pcs}}">
+                    @endforeach
+                @else
+                    <h3>لا يوجد منتجات في السلة</h3>
+                @endif
+                </tbody>
+            </table>
             @if($total>0)
-             <div class="text-center">
-                 <h3>المجموع <span>{{$total}}</span></h3>
-             </div>
-            <div class="text-center">
-                <div class="">
-                    <form class="form-inline justify-content-center">
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group row col-md-4">
-                           <div class="col-md-5">
-                               <input type="text" class="form-control">
-                           </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </form>
+                <div class="text-center">
+                    <h3>المجموع <span>{{$total}}</span></h3>
                 </div>
-                <a href="{{route("payment",$ord->id)}}" class="btn btn-success">اتمام عملية الشراء</a>
-            </div>
+
             @endif
         </div>
     </div>

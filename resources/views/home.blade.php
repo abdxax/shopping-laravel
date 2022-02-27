@@ -14,10 +14,98 @@
     />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!--للربط مع صفحة التنسيق-->
     <link rel="stylesheet" href="{{asset("css/indexStyles.css")}}">
 
+
+
     <title>ثمار الطبيعة</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+        .carousel-container {
+            width: 1280px;
+            margin: 50px auto;
+            min-height: 200px;
+            position: relative;
+        }
+        @media screen and (max-width: 768px) {
+            .carousel-container {
+                width: 80%;
+            }
+        }
+        @media screen and (max-width: 1024px) {
+            .carousel-container {
+                width: 85%;
+            }
+        }
+        .carousel-container .carousel-inner {
+            overflow: hidden;
+        }
+        .carousel-container .track {
+            display: inline-flex;
+            transition: transform 0.5s;
+        }
+        .carousel-container .card-container {
+            width: 259px;
+            flex-shrink: 0;
+            height: 250px;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+        .carousel-container .card-container .card {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .nav button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid #aaa;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .nav .prev {
+            left: -30px;
+            display: none;
+        }
+        .nav .prev.show {
+            display: block;
+        }
+        .nav .next {
+            right: -30px;
+        }
+        .nav .next.hide {
+            display: none;
+        }
+
+        .card > * {
+            flex: 1;
+        }
+        .card .img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+        .card .info {
+            flex-basis: 40px;
+            background: #333;
+            color: #fff;
+            flex-grow: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -94,6 +182,42 @@
 <section class="features" id="features">
     <div class="features-section">
         <h4>المنتجات الاكثر مبياعا</h4>
+        <!------------------------>
+
+        <div class="carousel-container">
+            <div class="carousel-inner">
+                <div class="track">
+
+                    @foreach($best as $b)
+
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="img"><img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150"></div>
+                                <div class="info">
+                                    {{$b->produect->title}}
+                                    {{$b->produect->price}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    @endforeach
+
+                </div>
+            </div>
+            <div class="nav">
+                <button class="prev">
+                    <i class="material-icons">
+                        keyboard_arrow_left
+                    </i>
+                </button>
+                <button class="next">
+                    <i class="material-icons">
+                        keyboard_arrow_right
+                    </i>
+                </button>
+            </div>
+        </div>
 
         <!-- للتنسيق الاربع المزايا-->
         <div class="row">
@@ -105,7 +229,7 @@
                        <img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150">
                         <h3>{{$b->produect->title}}</h3>
                         <p>{{$b->produect->price}}</p>
-                        <p><a href="{{route("shows",$b->produect->id)}}" class="btn btn-info">التفاصيل </a> </p>
+
 
                     </div>
 
@@ -113,6 +237,7 @@
 
 
             </div>
+
         </div>
 
     </div>
@@ -159,6 +284,14 @@
 
 
             </div>
+
+
+            <div class="d-felx justify-content-center">
+
+               
+
+            </div>
+
         </div>
 
     </div>
@@ -211,7 +344,40 @@
         </div>
     </div>
 </section>
+<script>
+    const prev  = document.querySelector('.prev');
+    const next = document.querySelector('.next');
 
+    const track = document.querySelector('.track');
+
+    let carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+
+    window.addEventListener('resize', () => {
+        carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+    })
+
+    let index = 0;
+
+    next.addEventListener('click', () => {
+        index++;
+        prev.classList.add('show');
+        track.style.transform = `translateX(-${index * carouselWidth}px)`;
+
+        if (track.offsetWidth - (index * carouselWidth) < carouselWidth) {
+            next.classList.add('hide');
+        }
+    })
+
+    prev.addEventListener('click', () => {
+        index--;
+        next.classList.remove('hide');
+        if (index === 0) {
+            prev.classList.remove('show');
+        }
+        track.style.transform = `translateX(-${index * carouselWidth}px)`;
+    })
+
+</script>
 </body>
 </html>
 

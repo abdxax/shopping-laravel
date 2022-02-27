@@ -28,7 +28,7 @@ Route::get("pay/{id}","HomeController@payOrder")->name("payment");
 Route::get("showCar","HomeController@car")->name("showCar");
 Route::get("market","HomeController@market")->name("market");
 Route::post("market","HomeController@market");
-
+Route::get("review/{id}","HomeController@reviewOreder")->name("review");
 Route::prefix("admin")->group(function (){
     Route::get("Home","Admin\HomeController@Index")->name("admin.Home");
     Route::get("depart","Admin\HomeController@Department")->name("admin.depart");
