@@ -23,13 +23,16 @@ class HomeController extends Controller
             if($item==0){
                 $prods=proudct::where("count",">",0)->get();
                 $dep=Department::all();
-                $arr=["prods"=>$prods,"dep"=>$dep];
+                $best=BestSeller::all()->sortDesc();
+                $arr=["prods"=>$prods,"dep"=>$dep,"best"=>$best];
                 return view("home",$arr);
             }
             else{
                 $prods=proudct::where("count",">",0)->where("dep_id",$item)->get();
                 $dep=Department::all();
-                $arr=["prods"=>$prods,"dep"=>$dep];
+                $best=BestSeller::all()->sortDesc();
+                $arr=["prods"=>$prods,"dep"=>$dep,"best"=>$best];
+
                 return view("home",$arr);
             }
         }

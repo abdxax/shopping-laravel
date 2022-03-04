@@ -105,6 +105,16 @@
             box-sizing: border-box;
         }
 
+        .best-seller{
+
+            background-color: #dfebc0;
+
+        }
+        .proc{
+            background-color: #dfebc0;
+        }
+
+
     </style>
 </head>
 
@@ -179,12 +189,12 @@
 </section>
 <!----Show items---->
 
-<section class="features" id="features">
-    <div class="features-section">
+<section class="features best-seller" id="features">
+    <div class="features-section best-seller">
         <h4>المنتجات الاكثر مبياعا</h4>
         <!------------------------>
 
-        <div class="carousel-container">
+        <div class="carousel-container ">
             <div class="carousel-inner">
                 <div class="track">
 
@@ -193,9 +203,9 @@
                         <div class="card-container">
                             <div class="card">
                                 <div class="img"><img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150"></div>
-                                <div class="info">
-                                    {{$b->produect->title}}
-                                    {{$b->produect->price}}
+                                <div class="info ">
+                                    <p>المنتج:{{$b->produect->title}}</p>
+                                    <p>السعر:{{$b->produect->price}}</p>
                                 </div>
                             </div>
                         </div>
@@ -220,25 +230,7 @@
         </div>
 
         <!-- للتنسيق الاربع المزايا-->
-        <div class="row">
-            <div class="qualities">
-                @foreach($best as $b)
 
-                    <div class="quality col-md-3">
-                        <!--كود الايقونه-->
-                       <img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150">
-                        <h3>{{$b->produect->title}}</h3>
-                        <p>{{$b->produect->price}}</p>
-
-
-                    </div>
-
-                @endforeach
-
-
-            </div>
-
-        </div>
 
     </div>
     <!--فوتر -->
@@ -246,7 +238,7 @@
 </section>
 
 <section class="features" id="features">
-    <div class="features-section">
+    <div class="features-section proc">
         <h4>المنتجات</h4>
         <div class="col-md-6">
             <form method="post">
@@ -269,18 +261,24 @@
         <!-- للتنسيق الاربع المزايا-->
         <div class="row">
             <div class="qualities">
-                @foreach($prods as $p)
+                <div class="row">
+                    @foreach($prods as $p)
+                      <div class="col-md-4">
 
-                    <div class="quality col-md-3">
-                        <!--كود الايقونه-->
-                        <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="95" height="95">
-                        <h3>{{$p->title}}</h3>
-                        <p>{{$p->price}}</p>
-                        <p><a href="{{route("shows",$p->id)}}" class="btn btn-info">التفاصيل </a> </p>
+                          <div class="quality ">
+                              <!--كود الايقونه-->
+                              <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="95" height="95">
+                              <h3>{{$p->title}}</h3>
+                              <p>{{$p->price}}</p>
+                              <p><a href="{{route("shows",$p->id)}}" class="btn btn-info">التفاصيل </a> </p>
 
-                    </div>
+                          </div>
 
-                @endforeach
+                      </div>
+
+
+                    @endforeach
+                </div>
 
 
             </div>
@@ -288,7 +286,7 @@
 
             <div class="d-felx justify-content-center">
 
-               
+
 
             </div>
 

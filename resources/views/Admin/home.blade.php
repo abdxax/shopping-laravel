@@ -1,46 +1,76 @@
 @extends("Layout._Layout")
 @section("main-section")
-<div class="container">
-    <div class="row mt-2">
 
-        <div class="col-md-3">
-            <a href="{{route("admin.depart")}}">
-            <div class="card">
-                <div class="card-body text-center">
+<section class="features bac row" id="features" style="background-color: white">
+    <div class="features-section col-md-3">
+        <h4></h4>
+        <!-- للتنسيق الاربع المزايا-->
+        <a href="{{route("admin.depart")}}">
+            <div class="qualities">
+                <div class="quality">
+                    <!--كود الايقونه-->
+                    <i class="	fas fa-clone"></i>
                     <h3>الاقسام</h3>
                     <p>{{$dep}}</p>
-                </div>
-            </div>
-            </a>
-        </div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h3>المنتجات</h3>
-                    <p>{{$prod}}</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h3>الطلبات</h3>
-                    <p>{{$order}}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h3>المستخدمين</h3>
-                    <p>{{$user}}</p>
-                </div>
-            </div>
-        </div>
+        </a>
 
     </div>
-</div>
+    </div>
+
+    <div class="features-section col-md-3">
+        <h4></h4>
+        <!-- للتنسيق الاربع المزايا-->
+
+            <div class="qualities">
+                <div class="quality">
+                    <!--كود الايقونه-->
+                    <i class="fas fa-shopping-basket"></i>
+                    <h3>المنتجات</h3>
+                    <p>{{$prod}}</p>
+
+                </div>
+
+
+    </div>
+    </div>
+
+    <div class="features-section col-md-3">
+        <h4></h4>
+        <!-- للتنسيق الاربع المزايا-->
+
+            <div class="qualities">
+                <div class="quality">
+                    <!--كود الايقونه-->
+                    <i class="fas fa-file-alt"></i>
+                    <h3>الطلبات</h3>
+                    <p>{{$order}}</p>
+
+                </div>
+
+
+    </div>
+    </div>
+
+    <div class="features-section col-md-3">
+        <h4></h4>
+        <!-- للتنسيق الاربع المزايا-->
+
+            <div class="qualities">
+                <div class="quality">
+                    <!--كود الايقونه-->
+                    <i class="fas fa-user-friends"></i>
+                    <h3>المستخدمين</h3>
+                    <p>{{$user}}</p>
+
+                </div>
+
+
+    </div>
+    </div>
+    <!--فوتر -->
+
+</section>
+
 @endsection

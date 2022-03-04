@@ -1,19 +1,25 @@
 @extends("Layout._Layout")
 @section("main-section")
-    <div class="container">
-        <div class="row mt-2">
+    <section class="features bac" id="features" style="background-color: white">
+        <div class="features-section">
+            <h4></h4>
+            <!-- للتنسيق الاربع المزايا-->
+            <a href="{{route("seller.prod")}}">
+            <div class="qualities">
+                <div class="quality">
+                    <!--كود الايقونه-->
+                    <i class="fas fa-shopping-basket"></i>
+                    <h3>المنتجات</h3>
+                    <p>{{$prod}}</p>
 
-            <div class="col-md-3">
-                <a href="{{route("seller.prod")}}">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h3>المنتجات </h3>
-                            <p>{{$prod}}</p>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
+
             </div>
+        </div>
+        <!--فوتر -->
 
+    </section>
 
 
 
