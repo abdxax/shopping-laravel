@@ -26,9 +26,11 @@ Route::get("show/{id}","HomeController@shows")->name("shows");
 Route::post("car/{id}","HomeController@addCar")->name("car");
 Route::get("pay/{id}","HomeController@payOrder")->name("payment");
 Route::get("showCar","HomeController@car")->name("showCar");
+Route::post("updateCount","HomeController@UpdateCount")->name("UpdateCount");
 Route::get("market","HomeController@market")->name("market");
 Route::post("market","HomeController@market");
 Route::get("review/{id}","HomeController@reviewOreder")->name("review");
+Route::get("delete/{id}","HomeController@deleteItem")->name("delete");
 Route::prefix("admin")->group(function (){
     Route::get("Home","Admin\HomeController@Index")->name("admin.Home");
     Route::get("depart","Admin\HomeController@Department")->name("admin.depart");
@@ -40,4 +42,5 @@ Route::prefix("seller")->group(function (){
     Route::get("proudects","Seller\HomeController@produect")->name("seller.prod");
     Route::post("proudects","Seller\HomeController@produect");
     Route::get("showprod/{id}","Seller\HomeController@showProd")->name("seller.show");
+    Route::post("updateProd","Seller\HomeController@updateProd")->name("seller.updateProd");
 });

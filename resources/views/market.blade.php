@@ -25,30 +25,32 @@
 <nav>
     <div class="logo">
         <!--تم نسخ كودالشعار من الموقع-->
+        <a class="navbar-brand logo" href="{{route("home")}}">
         <i class="fas fa-seedling"></i>
         <h4>ثمار الطبيعة</h4>
+        </a>
     </div>
     <!--اضافة قوائم-->
     <div class="wrapper">
         <ul>
-            @foreach($dep as $d)
+            <!--@foreach($dep as $d)
                 <li>
                     <a href="{{route("logout")}}">{{$d->title}}</a>
-                    <!--كود الايقونه-->
+                   كود الايقونه
                     <i class="fas fa-logout"></i>
                 </li>
-            @endforeach
+            @endforeach-->
 
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row justify-content-center">
+        <div class="col-md-6 offset-2 mt-3">
             <form method="post">
                 @csrf
-                <div class="form-group row">
+                <div class="form-group row ">
                     <div class="col-md-5">
                         <select name="seItem" class="form-select">
                             <option value="0">الكل</option>
@@ -63,6 +65,26 @@
                 </div>
             </form>
         </div>
+
+        <div class="col-md-12 row mt-3">
+            @foreach($prods as $p)
+                <div class="col-md-4">
+
+                    <div class="quality ">
+                        <!--كود الايقونه-->
+                        <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="120" height="120">
+                        <h3>المنتج: {{$p->title}}</h3>
+                        <p>السعر: {{$p->price}}</p>
+                        <p><a href="{{route("shows",$p->id)}}" class="btn btn-success">التفاصيل </a> </p>
+
+                    </div>
+
+                </div>
+
+
+            @endforeach
+        </div>
+
     </div>
 </div>
 

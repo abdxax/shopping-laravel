@@ -48,9 +48,27 @@ class HomeController extends Controller
         return view("shows")->with("prod",$prod);
     }
 
-    public function Market(){
+    public function Market(Request  $request){
+        if($request->isMethod("post")){
+            $item=$request->seItem;
+            if($item==0){
+                $prods=proudct::where("count",">",0)->get();
+                $dep=Department::all();
+                $best=BestSeller::all()->sortDesc();
+                $arr=["prods"=>$prods,"dep"=>$dep,"best"=>$best];
+                return view("market",$arr);
+            }
+            else{
+                $prods=proudct::where("count",">",0)->where("dep_id",$item)->get();
+                $dep=Department::all();
+                $best=BestSeller::all()->sortDesc();
+                $arr=["prods"=>$prods,"dep"=>$dep,"best"=>$best];
+
+                return view("market",$arr);
+            }
+        }
         $dep=Department::all();
-        $prods=proudct::where("count",">",0)->paginate(1);
+        $prods=proudct::where("count",">",0)->get();
         $arr=["prods"=>$prods,"dep"=>$dep];
         return view("market",$arr);
     }
@@ -63,6 +81,22 @@ class HomeController extends Controller
         $ord=Order::where("user_id",$user->id)->where("status","wait")->first();
 
         return  view("car")->with("ord",$ord);
+    }
+
+    public function UpdateCount(Request $request){
+        $car=CarShopping::find($request->car_id);
+        $car->count=$request->car_counts;
+        if($car->save()){
+            return back();
+        }
+    }
+
+    public function deleteItem($id){
+        $car=CarShopping::find($id);
+
+        $car->delete();
+
+        return back();
     }
 
     public  function payOrder($id){

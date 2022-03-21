@@ -28,15 +28,21 @@ class HomeController extends Controller
            if(!$request->hasFile("img")){
                return back();
            }
-            $fileName = time().'_'.$request->img->getClientOriginalName();
-            $path = $request->file('img')->storeAs("Proudct",$fileName,"public");
+            $fileName = time().'_'.$request->img[0]->getClientOriginalName();
+            $path = $request->img[0]->storeAs("Proudct",$fileName,"public");
             if($prod->save()){
-                $im=new ImgPrd();
-                $im->prod_id=$prod->id;
-                $im->imgPath=$path;
-                if($im->save()){
-                    return back();
+                foreach ( $request->img as $im){
+                    $fileName2 = time().'_'.$im->getClientOriginalName();
+                    $path2 = $im->storeAs("Proudct",$fileName2,"public");
+                    $im=new ImgPrd();
+                    $im->prod_id=$prod->id;
+                    $im->imgPath=$path2;
+                    $im->save();
                 }
+
+
+                    return back();
+
             }
 
         }
@@ -44,6 +50,17 @@ class HomeController extends Controller
         $dep=Department::all();
         $arr=["deps"=>$dep,"prods"=>$prods];
         return view("seller.produ",$arr);
+    }
+
+    public function updateProd(Request $request){
+        $prod=proudct::find($request->proc_id);
+        $prod->title=$request->title;
+        $prod->descrip=$request->desc;
+        $prod->price=$request->price;
+        $prod->count=$request->count;
+        if($prod->save()){
+            return back();
+        }
     }
 
     public function showProd($id){

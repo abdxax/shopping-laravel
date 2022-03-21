@@ -16,7 +16,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--للربط مع صفحة التنسيق-->
     <link rel="stylesheet" href="{{asset("css/indexStyles.css")}}">
-
+<style>
+    .center {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+</style>
 
     <title>ثمار الطبيعة</title>
 </head>
@@ -80,28 +87,36 @@
     <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h3>{{$prod->title}}</h3>
-            <img src="{{asset("storage/".$prod->imges[0]->imgPath)}}" width="270" height="270">
+            @foreach($prod->imges as $img)
+                <img src="{{asset("storage/".$img->imgPath)}}" class="ml-2" width="270" height="270">
+            @endforeach
             <p>{{$prod->descrip}}</p>
             <p>السعر :{{$prod->price}} </p>
             <p>الكمية : {{$prod->count}}</p>
-          <div class="col-md-5 offset-md-4">
+          <div class="row col-md-2  center ">
+              @if($prod->count>0)
               <form method="post" action="{{route("car",$prod->id)}}">
                   @csrf
                   <div class="form-group row">
-                      <label class="col-md-2">الكمية</label>
-                      <div class="col-md-3">
+                      <label class="col-md-4">الكمية  </label>
+                      <div class="col-md-5">
                           <input type="number" class="form-control" name="prod_item" >
                       </div>
                   </div>
 
-                  <div class="form-group row">
-                      <label></label>
-                      <div class="col-md-">
-                          <input type="submit" class="btn btn-info" value="اضافو للسلة">
+                  <div class="form-group row mt-2">
+                      <label class="col-md-4"></label>
+                      <div class="col-md-5">
+                          <input type="submit" class="btn btn-success" value="اضافة للسلة">
                       </div>
                   </div>
 
               </form>
+                  @else
+              <div class="text-center">
+                  <h4 style="color: red">نعتذر نفذت الكمية</h4>
+              </div>
+              @endif
           </div>
            <!-- <a href="{{route("car",$prod->id)}}" class="btn btn-info">اضافة للسلة</a>-->
         </div>

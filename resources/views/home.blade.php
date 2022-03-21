@@ -107,11 +107,87 @@
 
         .best-seller{
 
-            background-color: #dfebc0;
+
 
         }
         .proc{
             background-color: #dfebc0;
+        }
+
+        /**********/
+
+        .newest-offers {
+            padding-top: 5rem;
+            background-color: white;
+        }
+
+        .newest-offers .offers-section {
+            max-width: 1366px;
+            margin: 0 auto;
+            padding: 0 5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .offers-section h4 {
+            color: green;
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+        .offers-section .offers {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            justify-content: flex-start;
+        }
+        .offers .offer {
+            margin: 2rem 0;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .offers{
+            width: 90%;
+            padding: 20px;
+            margin: 8px auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .offer{
+            width: 250px;
+            margin: 0 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+            transition: 1s;
+        }
+
+        .offer img{
+            display: block;
+            width: 100;
+            border-radius: 5px;
+        }
+        .offer:hover{
+            transform: scale(1.3);
+            z-index: 2;
+        }
+        .offers-section h3 {
+            color:rgb(8, 73, 8);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+        .offers-section h1 {
+            color:rgb(8, 73, 8);
+            font-size: 0.7rem;
+            margin-bottom: 2rem;
+        }
+        .offers-section button {
+            width: 15rem;
+            height: 3rem;
+            margin-bottom: 2rem;
+            border: none;
+            align-self: center;
+            border-radius: 12px;
+            background-color:green ;
         }
 
 
@@ -201,6 +277,7 @@
                     @foreach($best as $b)
 
                         <div class="card-container">
+                            <a href="{{route("shows",$b->prod_id)}}">
                             <div class="card">
                                 <div class="img"><img src="{{asset("storage/".$b->produect->imges[0]->imgPath)}}" width="150" height="150"></div>
                                 <div class="info ">
@@ -208,6 +285,7 @@
                                     <p>السعر:{{$b->produect->price}}</p>
                                 </div>
                             </div>
+                            </a>
                         </div>
 
 
@@ -237,7 +315,7 @@
 
 </section>
 
-<section class="features" id="features">
+<!--<section class="features" id="features">
     <div class="features-section proc">
         <h4>المنتجات</h4>
         <div class="col-md-6">
@@ -259,14 +337,14 @@
             </form>
         </div>
         <!-- للتنسيق الاربع المزايا-->
-        <div class="row">
+       <!-- <div class="row">
             <div class="qualities">
                 <div class="row">
                     @foreach($prods as $p)
                       <div class="col-md-4">
 
                           <div class="quality ">
-                              <!--كود الايقونه-->
+                            كود الايقونه
                               <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" width="95" height="95">
                               <h3>{{$p->title}}</h3>
                               <p>{{$p->price}}</p>
@@ -293,9 +371,68 @@
         </div>
 
     </div>
-    <!--فوتر -->
 
+
+</section>-->
+
+<section class="newest-offers" id="newest">
+
+    <div class="offers-section">
+        <h4>البحث عن المنتجات</h4>
+
+        <div class="offers">
+            @foreach($prods as $p)
+
+                <div class="offer">
+                    <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" height="120" width="120"/>
+                    <h3>المنتج : {{$p->title}}</h3>
+                    <h1>السعر : {{$p->price}} </h1>
+                </div>
+
+            @endforeach
+
+           <!-- <div class="offer">
+                <img src="./images/promogran.jpg" height="160" />
+                <h3>رمان</h3>
+                <h1>8.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/apricots.jpg" height="160" />
+                <h3>مشمش</h3>
+                <h1>12.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/bagdons.jpg" height="160" />
+                <h3>بقدونس</h3>
+                <h1>5.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/spinch.jpg" height="160" />
+                <h3>سبانخ</h3>
+                <h1>7.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/painapple.jpg" height="160" />
+                <h3>أناناس</h3>
+                <h1>7.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/kzbra.jpg" height="160" />
+                <h3>كزبرة</h3>
+                <h1>3.00 ر.س</h1>
+            </div>
+            <div class="offer">
+                <img src="./images/iceberg.jpg" height="160" />
+                <h3>خس</h3>
+                <h1>25.00 ر.س</h1>
+            </div>-->
+        </div>
+        <button class="btn">
+            <a href="{{route("market")}}"> تصفّح جميع العروض </a>
+        </button>
+    </div>
 </section>
+
 
 <!--- end show item -->
 <!--فيتشر سكشن-->

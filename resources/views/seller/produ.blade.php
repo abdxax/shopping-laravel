@@ -41,7 +41,16 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="file" name="img" class="form-control" >
+                                    <input type="file" name="img[]" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" name="img[]" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" name="img[]" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" name="img[]" class="form-control" >
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -66,6 +75,7 @@
                     <th>السعر</th>
                     <th>الكمية</th>
                     <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,6 +86,57 @@
                             <td>{{$p->price}}</td>
                             <td>{{$p->count}}</td>
                             <td><a href="{{route("seller.show",$p->id)}}" class="btn btn-info"> التفاصيل</a> </td>
+                            <td><a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$p->id}}">تعديل</a> </td>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop2{{$p->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">تحديث</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data" action="{{route("seller.updateProd")}}">
+                                            @csrf
+                                            <input type="hidden" name="proc_id" value="{{$p->id}}">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <input type="text" name="title" class="form-control" placeholder="العنوان" value="{{$p->title}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="dep">
+                                                        @foreach($deps as $d)
+                                                            @if($p->dep_id==$d->id)
+                                                                <option value="{{$d->id}}" selected>{{$d->title}}</option>
+                                                            @endif
+                                                            <option value="{{$d->id}}">{{$d->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea name="desc" rows="5" class="form-control" placeholder="وصف المنتج" >{{$p->descrip}}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="price" class="form-control" placeholder="السعر" value="{{$p->price}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="count" class="form-control" placeholder="الكمية" value="{{$p->count}}">
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+
+                                                <input type="submit" name="sub" class="btn btn-info" value="تحديث">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </tr>
                     @endforeach
                     </tbody>

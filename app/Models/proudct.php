@@ -20,4 +20,8 @@ class proudct extends Model
     public function bestSeller(){
         return $this->hasOne(BestSeller::class,"prod_id");
     }
+
+    public function Images(){
+        return $this->hasMany(ImagesProc::class,"prod_id");
+    }
 }
