@@ -170,6 +170,13 @@
             transform: scale(1.3);
             z-index: 2;
         }
+
+        .offers a{
+            text-decoration: none;
+
+        }
+
+
         .offers-section h3 {
             color:rgb(8, 73, 8);
             font-size: 1.3rem;
@@ -382,13 +389,13 @@
 
         <div class="offers">
             @foreach($prods as $p)
-
+             <a href="{{route("shows",$p->id)}}">
                 <div class="offer">
                     <img src="{{asset("storage/".$p->imges[0]->imgPath)}}" height="120" width="120"/>
                     <h3>المنتج : {{$p->title}}</h3>
                     <h1>السعر : {{$p->price}} </h1>
                 </div>
-
+             </a>
             @endforeach
 
            <!-- <div class="offer">
