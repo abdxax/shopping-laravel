@@ -120,6 +120,34 @@
           </div>
            <!-- <a href="{{route("car",$prod->id)}}" class="btn btn-info">اضافة للسلة</a>-->
         </div>
+
+        <div class="col-md-10 offset-1">
+            <div class="card">
+                <div class="card-header">
+                    <h4>المنتجات الموصى بها</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                       @foreach($best as $b)
+                           <div class="col-md-3">
+                               <a href="{{route("shows",$b->id)}}">
+                                   <div class="card">
+                                       <div class="card-body">
+                                           <img src="{{asset("storage/".$b->imges[0]->imgPath)}}" width="120" height="120">
+                                           <h3>المنتج: {{$b->title}}</h3>
+                                           <p>السعر: {{$b->price}}</p>
+
+                                       </div>
+                                   </div>
+                               </a>
+                           </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 </body>

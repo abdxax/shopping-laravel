@@ -45,7 +45,9 @@ class HomeController extends Controller
 
     public function shows($id){
         $prod=proudct::find($id);
-        return view("shows")->with("prod",$prod);
+        $best=proudct::where('dep_id',$prod->dep_id)->paginate(4);
+        $arr=["prod"=>$prod,"best"=>$best];
+        return view("shows",$arr);
     }
 
     public function Market(Request  $request){
